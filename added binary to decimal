@@ -16,7 +16,7 @@ string decimalToBinary(int decimal) {
     return binary;
 }
 
-// Convert binary to decimal
+//Convert binary to decimal
 int binaryToDecimal(string binary) {
     int decimal = 0;
     int length = binary.length();
