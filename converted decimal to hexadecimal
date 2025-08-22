@@ -36,7 +36,7 @@ bool isValidBinary(string binary) {
     return true;
 }
 
-// Convert decimal to hexadecimal
+//Convert decimal to hexadecimal
 string decimalToHexadecimal(int decimal) {
     if (decimal == 0) return "0";
     string hex = "";
