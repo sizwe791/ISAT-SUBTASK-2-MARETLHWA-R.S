@@ -50,7 +50,7 @@ string decimalToHexadecimal(int decimal) {
     return hex;
 }
 
-// Convert hexadecimal to decimal
+//Convert hexadecimal to decimal
 int hexadecimalToDecimal(string hex) {
     int decimal = 0;
     for (char c : hex) {
