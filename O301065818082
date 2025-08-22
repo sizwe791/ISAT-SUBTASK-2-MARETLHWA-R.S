@@ -1,0 +1,150 @@
+#include <iostream>
+#include <string>
+#include <cctype>   // for toupper
+#include <cstdlib>  // for rand, srand
+#include <ctime>    // for time
+using namespace std;
+
+// Convert decimal to binary
+string decimalToBinary(int decimal) {
+    if (decimal == 0) return "0";
+    string binary = "";
+    while (decimal > 0) {
+        binary = to_string(decimal % 2) + binary;
+        decimal /= 2;
+    }
+    return binary;
+}
+
+// Convert binary to decimal
+int binaryToDecimal(string binary) {
+    int decimal = 0;
+    int length = binary.length();
+    for (int i = 0; i < length; ++i) {
+        if (binary[length - 1 - i] == '1') {
+            decimal += (1 << i);
+        }
+    }
+    return decimal;
+}
+
+// Validate binary input
+bool isValidBinary(string binary) {
+    for (char c : binary) {
+        if (c != '0' && c != '1') return false;
+    }
+    return true;
+}
+
+// Convert decimal to hexadecimal
+string decimalToHexadecimal(int decimal) {
+    if (decimal == 0) return "0";
+    string hex = "";
+    char hexDigits[] = "0123456789ABCDEF";
+
+    while (decimal > 0) {
+        int remainder = decimal % 16;
+        hex = hexDigits[remainder] + hex;
+        decimal /= 16;
+    }
+    return hex;
+}
+
+// Convert hexadecimal to decimal
+int hexadecimalToDecimal(string hex) {
+    int decimal = 0;
+    for (char c : hex) {
+        c = toupper(c);
+        if (isdigit(c)) {
+            decimal = decimal * 16 + (c - '0');
+        } else if (c >= 'A' && c <= 'F') {
+            decimal = decimal * 16 + (c - 'A' + 10);
+        } else {
+            return -1; // invalid hex character
+        }
+    }
+    return decimal;
+}
+
+// Validate hexadecimal input
+bool isValidHex(string hex) {
+    for (char c : hex) {
+        c = toupper(c);
+        if (!isdigit(c) && (c < 'A' || c > 'F')) return false;
+    }
+    return true;
+}
+
+int main() {
+    srand(time(0)); // Seed for random number generation
+
+    while (true) {
+        int choice;
+        cout << "\n====== Conversion Menu ======\n";
+        cout << "1. Decimal to Binary\n";
+        cout << "2. Binary to Decimal\n";
+        cout << "3. Decimal to Hexadecimal\n";
+        cout << "4. Hexadecimal to Decimal\n";
+        cout << "5. Demo (Generate & Convert Random Integer to Binary)\n";
+        cout << "6. Exit\n";
+        cout << "Choose option (1 - 6): ";
+        cin >> choice;
+
+        if (choice == 1) {
+            int decimal;
+            cout << "Enter a non-negative decimal number: ";
+            cin >> decimal;
+            if (decimal < 0) {
+                cout << "Error: Only non-negative numbers are allowed.\n";
+            } else {
+                cout << "Binary: " << decimalToBinary(decimal) << endl;
+            }
+        } 
+        else if (choice == 2) {
+            string binary;
+            cout << "Enter a binary number: ";
+            cin >> binary;
+            if (!isValidBinary(binary)) {
+                cout << "Error: Invalid binary number. Only 0s and 1s are allowed.\n";
+            } else {
+                cout << "Decimal: " << binaryToDecimal(binary) << endl;
+            }
+        } 
+        else if (choice == 3) {
+            int decimal;
+            cout << "Enter a non-negative decimal number: ";
+            cin >> decimal;
+            if (decimal < 0) {
+                cout << "Error: Only non-negative numbers are allowed.\n";
+            } else {
+                cout << "Hexadecimal: " << decimalToHexadecimal(decimal) << endl;
+            }
+        } 
+        else if (choice == 4) {
+            string hex;
+            cout << "Enter a hexadecimal number: ";
+            cin >> hex;
+            if (!isValidHex(hex)) {
+                cout << "Error: Invalid hexadecimal number. Use 0-9 and A-F only.\n";
+            } else {
+                int result = hexadecimalToDecimal(hex);
+                cout << "Decimal: " << result << endl;
+            }
+        } 
+        else if (choice == 5) {
+            int randomNum = rand() % 1001; // Random number between 0 and 1000
+            string binary = decimalToBinary(randomNum);
+            cout << "Random Number: " << randomNum << endl;
+            cout << "Binary Equivalent: " << binary << endl;
+        } 
+        else if (choice == 6) {
+            cout << "Exiting program. Goodbye!\n";
+            break;
+        } 
+        else {
+            cout << "Invalid choice. Please select a valid option (1-6).\n";
+        }
+    }
+
+    return 0;
+}
