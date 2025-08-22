@@ -5,7 +5,7 @@
 #include <ctime>    // for time
 using namespace std;
 
-// Convert decimal to binary
+//Convert decimal to binary
 string decimalToBinary(int decimal) {
     if (decimal == 0) return "0";
     string binary = "";
